@@ -6,7 +6,8 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.13.4",
-    "koa-router": "^10.1.1"
+    "koa-router": "^10.1.1",
+    "mongoose": "^6.2.10"
   },
   "scripts": {
     "start": "node app.js",
