@@ -1,25 +1,30 @@
-const Koa  = require('koa')
+const Koa = require('koa')
 const Router = require('koa-router')
-const mongoose = require('mongoose')
+const Cors = require('@koa/cors')
+const KoaBody = require('koa-body')
+const KoaJson = require('koa-json')
 
 const app = new Koa()
 const router = new Router()
 
+router.prefix('/app')
 router.get('/', async ctx => {
-    ctx.body = {msg: 'Hello Koa!'}
+    ctx.body = { msg: 'Hello Koa!' }
 })
 
-mongoose.connect("mongodb://admin:123456@localhost:27017")
-        .then(() => {
-            console.log('Connected...');
-        })
-        .catch(err => {
-            console.log(err);
-        })
+router.get('/home', async ctx => {
+    ctx.body = 'this is home page'
+})
 
+app.use(KoaBody())
+app.use(Cors())
+app.use(KoaJson({
+    pretty: false,
+    param: 'pretty'
+}))
 app.use(router.routes()).use(router.allowedMethods())
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5001
 
 app.listen(port, () => {
     console.log('port:', port);
