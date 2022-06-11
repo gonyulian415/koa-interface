@@ -1,22 +1,14 @@
 const Koa = require('koa')
-const Router = require('koa-router')
 const Cors = require('@koa/cors')
 const KoaBody = require('koa-body')
 const KoaJson = require('koa-json')
+const router = require('./routes/router')
+const bodyParser = require('koa-bodyparser')
 
 const app = new Koa()
-const router = new Router()
-
-router.prefix('/app')
-router.get('/', async ctx => {
-    ctx.body = { msg: 'Hello Koa!' }
-})
-
-router.get('/home', async ctx => {
-    ctx.body = 'this is home page'
-})
 
 app.use(KoaBody())
+// app.use(bodyParser())
 app.use(Cors())
 app.use(KoaJson({
     pretty: false,
