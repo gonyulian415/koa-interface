@@ -3,12 +3,23 @@ const UserModel = require('../modules/user')
 class userController {
     static async create(ctx) {
         const req = ctx.request.body
-        console.log(req, typeof(req));
+
         if (req.username && req.pwd && req.role) {
             try {
-                console.log('user controller');
-                const res = await UserModel.createUser(req)
-                console.log('usermodel create res:', res);
+                const findResult = await UserModel.findUser({
+                    where: {
+                        username: req.username
+                    }
+                })
+                if (findResult?.length > 0) {
+                    ctx.response.status = 400
+                    ctx.body = {
+                        code: 400,
+                        msg: 'username is already existed!'
+                    }
+                    return
+                }
+                const createResult = await UserModel.createUser(req)
                 ctx.response.status = 200
                 ctx.body = {
                     code: 200,

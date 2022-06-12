@@ -19,5 +19,5 @@ app.use(router.routes()).use(router.allowedMethods())
 const port = process.env.PORT || 5001
 
 app.listen(port, () => {
-    console.log('port:', port);
+    // console.log('port:', port);
 })
