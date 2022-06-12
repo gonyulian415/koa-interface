@@ -1,9 +1,10 @@
 const dbConfig = require('../config/dbconfig')
-const Sequelize = require('sequelize')
+const { DataTypes } = require('sequelize')
 const sequelize = dbConfig.sequelize
 
 const User = require('../schema/user')
-const userModel = User(sequelize, Sequelize.DataTypes)
+const userModel = User(sequelize, DataTypes)
+
 
 class UserModel {
     static async createUser(data) {
